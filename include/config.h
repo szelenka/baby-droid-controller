@@ -50,10 +50,32 @@
 #define DEBOUNCE_DELAY            50    // 50ms debounce time
 
 // ESP-NOW Configuration
-// Replace with your target ESP32's MAC address
-// Format: {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF}
-#define TARGET_MAC_ADDRESS {0x10, 0x51, 0xDB, 0x1C, 0x96, 0xE8}
-// WiFi Channel (must match between both ESP32s)
+// This will be the receiver - MAC address should match TARGET_MAC_ADDRESS in controller
+// You can get this device's MAC address from Serial output on first run
+#if defined(DROID_CHEEP)
 #define WIFI_CHANNEL        1
+#elif defined(DROID_KE4)
+#define WIFI_CHANNEL        2
+#elif defined(DROID_CHOPPER)
+#define WIFI_CHANNEL        3
+#elif defined(DROID_R5)
+#define WIFI_CHANNEL        4
+#else
+#endif
+
+// Allowed Controller MAC Address (optional security feature)
+// Set to controller's MAC address to only accept commands from that device
+// Comment out to accept commands from any ESP-NOW transmitter
+#if defined(DROID_CHEEP)
+#define TARGET_MAC_ADDRESS {0xF4, 0x65, 0x0B, 0x33, 0x44, 0x8C}
+#elif defined(DROID_KE4)
+#define TARGET_MAC_ADDRESS {0x10, 0x51, 0xDB, 0x1C, 0x82, 0x14}
+#elif defined(DROID_CHOPPER)
+#define TARGET_MAC_ADDRESS {0x1, 0x2, 0x3, 0x4, 0x5, 0x6}
+#elif defined(DROID_R5)
+#define TARGET_MAC_ADDRESS {0x1, 0x2, 0x3, 0x4, 0x5, 0x6}
+#else
+#define TARGET_MAC_ADDRESS {0x1, 0x2, 0x3, 0x4, 0x5, 0x6}
+#endif
 
 #endif // CONFIG_H
